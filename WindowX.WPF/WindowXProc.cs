@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace WindowX
+namespace WindowX.WPF
 {
     /// <summary>
     /// Contains methods and properties to aid with the Windows Messages handling sent to the WindowX.

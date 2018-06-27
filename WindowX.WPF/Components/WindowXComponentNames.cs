@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowX.Components
+namespace WindowX.WPF.Components
 {
     /// <summary>
     /// Contains the names of the main WindowX components.
@@ -13,7 +13,10 @@ namespace WindowX.Components
     {
         // Window structure
         public const string WindowBorder = "WNDX_BORDER";
-        public const string WindowButtons = "WNDX_BUTTONS";
+        public const string WindowButton_Close = "WNDXBTN_CLOSE";
+        public const string WindowButton_Maximize = "WNDXBTN_MAXIMIZE";
+        public const string WindowButton_Minimize = "WNDXBTN_MINIMIZE";
+        public const string WindowButton_Restore = "WNDXBTN_RESTORE";
         public const string WindowContent = "WNDX_CONTENT";
         public const string WindowTitle = "WNDX_TITLE";
         public const string WindowTitleBar = "WNDX_TITLEBAR";

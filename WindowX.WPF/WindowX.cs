@@ -14,38 +14,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Shell;
-using WindowX.Components;
+using WindowX.WPF.Components;
 
-namespace WindowX
+namespace WindowX.WPF
 {
     /// <summary>
-    /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
-    ///
-    /// Step 1a) Using this custom control in a XAML file that exists in the current project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:WindowX"
-    ///
-    ///
-    /// Step 1b) Using this custom control in a XAML file that exists in a different project.
-    /// Add this XmlNamespace attribute to the root element of the markup file where it is 
-    /// to be used:
-    ///
-    ///     xmlns:MyNamespace="clr-namespace:WindowX;assembly=WindowX"
-    ///
-    /// You will also need to add a project reference from the project where the XAML file lives
-    /// to this project and Rebuild to avoid compilation errors:
-    ///
-    ///     Right click on the target project in the Solution Explorer and
-    ///     "Add Reference"->"Projects"->[Select this project]
-    ///
-    ///
-    /// Step 2)
-    /// Go ahead and use your control in the XAML file.
-    ///
-    ///     <MyNamespace:CustomControl1/>
-    ///
+    /// The custom WPF window.
     /// </summary>
     public class WindowX : Window
     {
@@ -139,11 +113,11 @@ namespace WindowX
             var newValue = (double)e.NewValue;
 
             // Get the WindowX
-            var swmWnd = sender as WindowX;
-            if (swmWnd == null) return;
+            var wndX = sender as WindowX;
+            if (wndX == null) return;
 
             // Set the window border thickness
-            swmWnd.BorderThickness = new Thickness(newValue);
+            wndX.BorderThickness = new Thickness(newValue);
         }
 
         /// <summary>
@@ -158,11 +132,11 @@ namespace WindowX
             var newValue = (double)e.NewValue;
 
             // Get the WindowX
-            var swmWnd = sender as WindowX;
-            if (swmWnd == null) return;
+            var wndX = sender as WindowX;
+            if (wndX == null) return;
 
             // Check against the window border size
-            if (newValue > swmWnd.BorderSize) return;
+            if (newValue > wndX.BorderSize) return;
         }
 
         /// <summary>
@@ -176,14 +150,14 @@ namespace WindowX
             if (e.NewValue.Equals(e.OldValue)) return;
 
             // Get the WindowX
-            var swmWnd = sender as WindowX;
-            if (swmWnd == null) return;
+            var wndX = sender as WindowX;
+            if (wndX == null) return;
 
             // Set the correct border size
             if ((bool)e.NewValue)
-                swmWnd.BorderSize = swmWnd.BorderSize * 2 - 1;
+                wndX.BorderSize = wndX.BorderSize * 2 - 1;
             else
-                swmWnd.BorderSize = (swmWnd.BorderSize + 1) / 2;
+                wndX.BorderSize = (wndX.BorderSize + 1) / 2;
         }
 
         /// <summary>
@@ -197,14 +171,14 @@ namespace WindowX
             if (e.NewValue.Equals(e.OldValue)) return;
 
             // Get the WindowX
-            var swmWnd = sender as WindowX;
-            if (swmWnd == null) return;
+            var wndX = sender as WindowX;
+            if (wndX == null) return;
 
             // Update the WindowX chrome
-            var swmWndChrome = WindowChrome.GetWindowChrome(swmWnd);
-            if (swmWndChrome == null) return;
-            swmWndChrome.CaptionHeight = (double)e.NewValue;
-            WindowChrome.SetWindowChrome(swmWnd, swmWndChrome);
+            var wndXChrome = WindowChrome.GetWindowChrome(wndX);
+            if (wndXChrome == null) return;
+            wndXChrome.CaptionHeight = (double)e.NewValue;
+            WindowChrome.SetWindowChrome(wndX, wndXChrome);
         }
 
         #endregion
@@ -300,7 +274,7 @@ namespace WindowX
             // Set the resource dictionary
             _resourceDictionary =
                 (ResourceDictionary)Application.LoadComponent(
-                    new Uri("/Swarm.Window;component/Themes/Generic.xaml", UriKind.Relative));
+                    new Uri("/WindowX.WPF;component/Themes/Generic.xaml", UriKind.Relative));
 
             // Get the window structure components
             _windowBorder = GetTemplateChild(WindowXComponentNames.WindowBorder) as Border;
@@ -313,7 +287,6 @@ namespace WindowX
 
             // Handle the events
             HandleEvents();
-
         }
 
         /// <summary>

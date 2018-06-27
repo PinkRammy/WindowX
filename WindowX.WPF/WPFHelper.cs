@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace WindowX
+namespace WindowX.WPF
 {
     /// <summary>
     /// Contains methods to aid in the development of WPF applications.

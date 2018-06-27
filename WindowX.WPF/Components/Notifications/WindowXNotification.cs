@@ -6,10 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Animation;
-using WindowX.Animations;
+using WindowX.WPF.Animations;
 
-namespace WindowX.Components.Notifications
+namespace WindowX.WPF.Components.Notifications
 {
     /// <summary>
     /// Notification control used by the WindowX window to show information to the user.
@@ -53,6 +54,9 @@ namespace WindowX.Components.Notifications
 
             // Set the time to live
             _notificationTimeToLive = IsValidTimeToLive(ttl) ? ttl : TimeSpan.FromSeconds(DefaultTimeToLiveSeconds);
+
+            // Handle the click event
+            MouseDown += OnNotificationClick;
         }
 
         /// <summary>
@@ -161,7 +165,7 @@ namespace WindowX.Components.Notifications
                 _notificationLife.Dispose();
 
             // Hide the notification
-            WindowXAnimations.FadeOut(this, WindowXAnimations.NormalAnimationDuration, WhenNotificationClose);
+            WindowXAnimations.FadeOut(this, WindowXAnimations.NormalAnimationDuration, WhenNotificationClosed);
         }
 
         /// <summary>
@@ -198,6 +202,20 @@ namespace WindowX.Components.Notifications
         }
 
         /// <summary>
+        /// Handles the event that occurs when the WindowX notification is clicked.
+        /// </summary>
+        /// <param name="sender">The instance that raised the event.</param>
+        /// <param name="e">The event data.</param>
+        private void OnNotificationClick(object sender, MouseButtonEventArgs e)
+        {
+            // Check the mouse button
+            if (e.ChangedButton != MouseButton.Left) return;
+
+            // Close the notification
+            Close();
+        }
+
+        /// <summary>
         /// Shows the WindowX notification.
         /// </summary>
         public void Show()
@@ -206,13 +224,13 @@ namespace WindowX.Components.Notifications
             if (!IsClosed) return;
 
             // Show the notification
-            WindowXAnimations.FadeIn(this, WindowXAnimations.NormalAnimationDuration, WhenNotificationShow);
+            WindowXAnimations.FadeIn(this, WindowXAnimations.NormalAnimationDuration, WhenNotificationShown);
         }
 
         /// <summary>
         /// Handles the event that occurs when the notification is closed.
         /// </summary>
-        private void WhenNotificationClose()
+        private void WhenNotificationClosed()
         {
             // Set the closing flag
             Dispatcher.Invoke(() => IsClosed = true);
@@ -224,13 +242,13 @@ namespace WindowX.Components.Notifications
         /// <summary>
         /// Handles the event that occurs when the notification is shown.
         /// </summary>
-        private void WhenNotificationShow()
+        private async void WhenNotificationShown()
         {
             // Create the cancellation token
             _notificationToken = new CancellationTokenSource();
 
             // Start the notification life
-            Live(_notificationToken.Token);
+            await Live(_notificationToken.Token);
         }
 
         #endregion

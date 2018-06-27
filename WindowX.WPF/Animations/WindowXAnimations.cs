@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace WindowX.Animations
+namespace WindowX.WPF.Animations
 {
     /// <summary>
     /// Contains information used by the animations inside the WindowX window.

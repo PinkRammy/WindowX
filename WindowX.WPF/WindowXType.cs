@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WindowX
+namespace WindowX.WPF
 {
     /// <summary>
     /// The available WindowX styles.
